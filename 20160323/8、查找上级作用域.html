@@ -8,21 +8,29 @@
 <script type="text/javascript">
     //->如何查找上级作用域：
     //就看当前函数对应的那个内存地址是在哪个作用域下定义的,那么它的上级作用域就是谁,和函数在哪执行的没有任何的关系
-    var num = 1;
-    function fn() {
-        var num = 10;
-        return function () {
-            console.log(num);
-        }
-    }
-    var f = fn();
-    f();
+//    var num = 1;
+//    function fn() {
+//        var num = 10;
+//        return function () {
+//            console.log(num);//10
+//        }
+//    }
+//    var f = fn();
+//    f();
 
     //->JS中的内存分为两种:
     //1)栈内存(作用域:全局作用域和私有的作用域) ->提供一个代码执行的环境
     //2)堆内存(引用数据类型开辟的那个内存空间) ->存储东西的,对象存储的是属性名和属性值，函数存储的是代码字符串
 
     //真实的项目中为了节省浏览器的空间和提高页面的性能,我们需要学会对没有用的堆/栈内存进行释放,也需要了解对于不释放的内存的管理
+    console.log(a); //undefined
+    var a=12;
+    function fn(){
+        console.log(a); //undefined
+        var a=13;
+    }
+    fn();
+    console.log(a);  //12
 </script>
 </body>
 </html>

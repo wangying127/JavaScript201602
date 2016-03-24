@@ -17,18 +17,18 @@
     //->不是私有的变量:往当前作用域的上级作用域进行查找,是上级私有的,则相当于在当前作用域中操作上级的私有变量;如果也不是上级私有的,则继续往上找...一直找到window下为止
     //我们把这种变量的查找过程称之为"作用域链"
 
-    //    console.log(num, str, boo);
-    //    var num = 12;
-    //    var str = "珠峰";
-    //    var boo = false;
-    //    function fn(boo) {
-    //        console.log(num, str, boo);
-    //        var num = 130;
-    //        str = "培训";
-    //        console.log(num, str, boo);
-    //    }
-    //    fn(true);
-    //    console.log(num, str, boo);
+        console.log(num, str, boo); //undefined undefined undefined
+        var num = 12;
+        var str = "珠峰";
+        var boo = false;
+        function fn(boo) {
+            console.log(num, str, boo); //undefined "珠峰" true
+            var num = 130;
+            str = "培训";
+            console.log(num, str, boo); //130 "培训" true
+        }
+        fn(true);
+        console.log(num, str, boo);//12 "培训" false
 
     //->如果找到window下还没有
 
