@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->闭包是一种"机制":函数执行形成私有的作用域(不管销毁还是不销毁),保护了里面的私有变量不受外界的干扰
+    //->社会上很多人都认为"闭包"指的是:函数执行形成的那个不销毁的私有作用域才是闭包
+    //    var fn = (function () {
+    //        var num = 12;
+    //        return function () {
+    //            console.log(++num);
+    //        }
+    //    })();//->JS高阶编程技巧之一："惰性思想"
+
+    //1、利用可以形成不销毁的私有的作用域的原理，把我们需要保存的内容，存储到这个不销毁的作用域中
+
+    //2、避免全局变量之间的冲突，保护里面的变量不受外界的干扰 ->所有框架/类库的源码都是写在一个闭包函数中的,目的就是为了不和别人的代码冲突
+    //    var name = "china";
+    //    var age = 5000;
+    //    (function () {
+    //        var name = "zhuFeng";
+    //        var age = 7;
+    //    })();
+
+    //[jQuery]
+    //    (function (global, factory) {
+    //        //<JS CODE>
+    //        var jQuery = function () {
+    //
+    //        };
+    //        window.jQuery = window.$ = jQuery;//->让私有的变量在全局下依然可以使用,我们可以使用window.xxx=xxx来进行处理
+    //        //->当前的这个作用域是不销毁的,因为函数里面的jQuery对应的地址被window下的jQuery和$给占用了
+    //    })();
+    //    jQuery();
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    console.log(a, b, c);//->undefined*3
+    //    var a = 12;
+    //    var b = 13;
+    //    var c = 14;
+    //    function fn(c) {
+    //        console.log(a, b, c);//->undefined、13、14
+    //        var a = 100;
+    //        c = 200;
+    //        b = 300;
+    //        console.log(a, b, c);//->100、300、200
+    //    }
+    //    fn(c);
+    //    console.log(a, b, c);//->12、300、14
+
+    //->作用域链
+    //当函数执行的时候,会形成一个新的私有的作用域A,在A中代码执行的时候,我们遇到一些变量,首先看是不是自己A的私有变量
+    //->是私有的变量：那么以后在A中,所有这个私有变量的操作,一般和外面没有任何的关系(是不同的变量) ->"闭包":保护私有作用域中的私有变量不受外界的干扰
+
+    //->如果不是私有的变量：则往A的上级作用域进行查找,如果上级也没有这个变量,则继续向上查找...一直找到window为止(如果在某一级B中找到了,那么在A中对这个变量的所有的操作都相当于在操作B中的变量)
+    //    var num = 13;
+    //    function fn() {
+    //        num++;//->让全局作用域下的num变量累加
+    //    }
+    //    fn();
+    //    console.log(num);//->14
+    //    fn();
+    //    console.log(num);//->15
+
+    //->如果全局下也没有找到
+    //    function fn() {
+    //        console.log(num);//->获取:Uncaught ReferenceError: num is not defined ->获取的话就会报错
+    //    }
+    //    fn();
+
+    //    function fn() {
+    //        num = 12;//->设置：相当于给window增加了一个叫做num的属性名,属性值是12 ->window.num=12;
+    //    }
+    //    fn();
+    //    console.log(num);//->12
+</script>
+</body>
+</html>

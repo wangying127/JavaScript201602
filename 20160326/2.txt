@@ -1,0 +1,23 @@
+window预:
+	var a; var b; var c; fn=xxxfff000;
+window执:
+	console.log(a,b,c); ->undefined*3
+	a=12;
+	b=13;
+	c=14;
+	
+	fn执行,把全局c的值14传递给函数的形参->fn(14),形成一个私有的作用域G
+		G参:
+			c=14
+		G预:
+			var a; ->以后在G中出现的a/c都是私有的变量,和外面没关系
+		G执:
+			console.log(a,b,c); ->a:undefined c:14 b:不是私有的则往G的上级作用域window下查找->这里面出现的b是全局下的b->13
+
+			a=100;
+			c=200;
+			b=300; ->让全局的b变为300
+
+			->a:100 b:300 c:200
+
+	->a:12 b:300 c:14

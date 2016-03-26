@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->自从学了预解释,从此节操是路人
+
+    //1、在预解释的时候,不管条件是否成立,都要进行预解释
+    //预：var num; ->window.num=undefined  ->"num" in window ->true
+    //    if (!("num" in window)) {
+    //        var num = 12;
+    //    }
+    //    console.log(num);//->undefined
+
+    //->in:用来检测某一个属性名是否属于这个对象的
+    //    var obj = {name: "张锋"};
+    //    console.log("name" in obj);//->true
+    //    console.log("age" in obj);//->false
+
+    //    var name = "zhufeng";
+    //    console.log(name in obj);//->"zhufeng" in obj
+
+    //    console.log(fn);//->undefined
+    //    fn();//->Uncaught TypeError: fn is not a function
+    //    if (1 > 1) {
+    //        function fn() {
+    //            console.log("ok");
+    //        }
+    //    }
+
+    //    console.log(num);//->undefined
+    //    if (1 > 1) {
+    //        var num = 12;
+    //    }
+
+    //    if (1 > 1) {
+    //        function fn() {
+    //            console.log("ok");
+    //        }
+    //    }
+    //    console.log(fn);//->undefined
+    //    fn();//->Uncaught TypeError: fn is not a function
+
+    //    if (1 == 1) {
+    //        function fn() {
+    //            console.log("ok");
+    //        }
+    //    }
+    //    console.log(fn);//->函数本身
+    //    fn();//->"ok"
+
+    //2、预解释的时候只对等号左边的进行预解释，右边的是值，是不进行预解释的
+    //预:var fn;
+    //    fn();//->undefined() Uncaught TypeError: fn is not a function
+    //    var fn = function () {
+    //        console.log("ok");
+    //    };
+    //    fn();
+
+    //3、函数体中return下面的代码虽然不在执行了,但是需要进行预解释;return后面的返回的是值,是不进行预解释的;
+    //    function fn() {
+    //        //预：var num; var total;
+    //        var num = 12;
+    //        return function sum() {
+    //
+    //        };
+    //        var total = 0;
+    //    }
+    //    fn();
+
+    //4、自执行函数的function是不进行预解释的
+    //window预：无
+    //    (function (i) {
+    //        //私预：var num;
+    //        var num = 1000;
+    //    })(100);
+
+    //    +function(i){}(100);
+    //    -function(i){}(100);
+    //    ~function(i){}(100);
+    //    !function(i){}(100);
+
+    //5、在预解释阶段，如果当前的这个名字已经声明过了，那么下面在遇到就不会在从新的声明了，但是需要重新的赋值；
+
+    //->只要在全局作用域下声明过的变量/函数名都相当于给window增加一个属性名
+    //    var fn = 13;//->window.fn=13;
+    //    function fn() {//->window.fn=xxxfff000
+    //        console.log("ok");
+    //    }
+    //->一个对象(window)的属性名是不能重复的,所有也就是说：如果变量名和函数的名字一样，也是要发生冲突的，这个名字是一个东西，只是存储的数据类型不一样
+
+    //预解释：var fn; 到函数的时候不需要重新的声明了，只需要重新的赋值即可->fn=xxxfff000
+    //->var fn = xxxfff000;
+    //    console.log(fn);//->xxxfff000对应的这个函数
+    //    var fn = 13;//->fn=13
+    //    function fn() {
+    //        console.log("ok");
+    //    }
+    //    console.log(fn);//->13
+
+    //window下的预解释:
+    //  声明+定义 fn=xxxfff111
+    //  声明 var fn;(上面声明过一次了,不需要在声明)
+    //  定义 fn=xxxfff222
+    //->fn=xxxfff222
+
+    //    fn();//->2
+    //    function fn(){console.log(1);}//->不管
+    //    fn();//->2
+    //    var fn=13;//->var fn;不管 //->fn=13
+    //    fn();//->13() 报错：fn is not a function
+    //    function fn(){console.log(2);}//->不管
+    //    fn();
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //JS->客户端脚本编程语言:运行在浏览器端的一门语言
+
+    //1、预解释(变量提声):在当前的作用域中,JS代码从上到下执行之前,首先会把所有带var/function关键字的进行提前的声明或者定义
+    //var num = 12;
+    //->声明(declare): var num; 声明一个叫做num的变量  ->只声明不赋值的话,默认的值是undefined
+    //->定义(defined): num=12; 给声明的变量赋值就是定义
+
+    //2、带var关键字的只是提前的声明(只有当代码执行的时候,才进行赋值操作)；而带function关键字的在预解释阶段就把声明和赋值都完成了；
+
+    //预：var num; ->undefined
+    //    console.log(num);//->undefined
+    //    var num = 5;//->num=5 浏览器比较的懒,做过一遍的东西绝对不会去做第二遍,所以这一步只有num=5,var num不需要重新操作了
+    //    console.log(num);//->5
+
+    //预：什么都没有做
+    //    console.log(num);//->Uncaught ReferenceError: num is not defined 一般情况下,当前行的代码报错,那么下面的代码都不会在继续执行了
+    //    num = 5;
+    //    console.log(num);
+
+    //->“在全局作用域中”有这样一个机制,num=5(不加var)相当于给window增加一个叫做num的属性名,属性值是5
+    //    num = 5;//->window.num=5;
+    //    console.log(num);//->console.log(window.num) ->5
+
+    //->“在全局作用域中”有这样一个机制,var num,只要是通过var声明过的变量,都是"全局变量",不仅如此,也相当于给window增加了一个叫做num的属性名
+    //预：var num; ->window.num=undefined;
+    //    var num = 5;
+    //    console.log(window.num);//->5
+
+    //3、
+    //预：fn = xxxfff000
+    //    console.log(fn);//->当前函数定义部分的函数本身
+    //    function fn() {
+    //        var total = 1 + 1;
+    //        console.log(total);
+    //    }//->40~43在全局作用域下预解释的时候都完成了，代码执行到这直接的跳过即可
+    //    console.log(fn);//->当前函数本身
+
+    //    var total = 100;
+    //    fn();
+    //    function fn() {
+    //        console.log(total);//->undefined
+    //        var total = 1 + 1;
+    //        console.log(total);
+    //    }
+
+
+    var ary = [12, 23, 34, 45];
+    function fn(ary) {
+        ary[ary.length] = 100;//->push
+        ary = [20];
+        ary.length--;//->pop
+        return ary;
+    }
+    var res = fn(ary);//->fn执行传递进来的都是值,我写的是一个ary,把全局ary的值(xxxfff111)传递给函数
+    console.log(ary, res);
+
+
+    //->函数执行的时候传递给形参的永远是值,即使看上去不是一个值也是把值传递给函数的形参
+    //    fn(100) ->传递100进来
+    //    var num=1000;
+    //    fn(num) ->把num变量"存储的值"传递给函数 ->fn(1000)
+    //    fn(1>1) ->把1>1的结果false传递给函数 ->fn(false)
+    //    fn(1==1?10:100) ->把三元运算符的结果传给函数 ->fn(10)
+</script>
+</body>
+</html>

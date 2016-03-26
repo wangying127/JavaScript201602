@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //++i和i++
+    //->都是在自身的基础上累加1
+    //->在和另外一个值进行运算的时候,累加的顺序不一样
+    //    var i = 2;
+    //    console.log(3 + (i++));//->5  3+i->5  i++->i=3
+    //    i = 2;
+    //    console.log(3 + (++i));//->6 ++i->i=3 3+i->6
+
+    //扩展题:
+    //    var i = 5;
+    //    console.log(1 + (++i) + (++i) + 2 + (i++) + (i++));
+    //    console.log(i);
+
+    //    function fn() {
+    //        var i = 10;
+    //        return function (n) {
+    //            console.log(n + (++i));
+    //        }
+    //    }
+    //    var f = fn();
+    //    f(2);
+    //    fn()(2);//->首先执行fn,然后把fn执行的返回结果(一个小的函数)在执行
+    //    fn()(3);
+    //    f(3);
+
+    //->第一周视频中也有这个题
+    //->第一周第一天"预解释、作用域、this"教材中的倒数第二道题也是这样的
+
+
+    //课后扩展：(我们不管执行哪个函数操作的都是全局下的i)
+    var i = 2;
+    function fn() {
+        i = 10;
+        return function (n) {
+            console.log(n + (++i));
+        }
+    }
+    var f = fn();
+    f(2);
+    fn()(2);
+    fn()(3);
+    f(3);
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+首先注册自己的gitHub账号:https://github.com/
+
+1、通过地址找到老师的仓库
+  ->https://github.com/zhufengpeixun/JavaScript201602
+
+   fork(把老师的仓库克隆一份一模一样的到自己的仓库) ->zhouxiaotian1990/JavaScript201602 forked from zhufengpeixun/JavaScript201602
+
+
+2、找到自己仓库的地址：https://github.com/zhouxiaotian1990/JavaScript201602.git
+
+   把自己gitHub上的仓库的源码克隆到本地一份
+   $ git clone https://github.com/zhouxiaotian1990/JavaScript201602.git(自己仓库的地址)
+
+
+3、增加自己本地和老师远程仓库的连接
+   $ git remote -v 查看本地和哪些远程仓库都连接了
+
+   $ git remote add zhufeng https://github.com/zhufengpeixun/JavaScript201602.git(这个地址就是老师仓库的地址) ->以后的zhufeng这个名字代表的就是自己本地和老师远程仓库的连接了
+
+-------------------------------------------------------------
+
+1、更新老师讲义
+   $ git remote update zhufeng
+   $ git pull zhufeng master
+
+2、把本地最新的讲义放到自己的github仓库中
+   $ git add -A
+   $ git commit -m"备注信息"
+   $ git push origin master   ->输入自己github的用户名和密码
+
+
+
+
+
+
