@@ -27,7 +27,7 @@
     }
 
     var fn = obj.fn; //
-    fn();  //65
+   // fn();  //65
     //obj.fn();//  85
     //console.log(window.num, obj.num);//240,120
 
@@ -41,7 +41,7 @@
         fn  : (function (){
             this.num *= 2;
             num += 3;
-             num = 6;
+            num = 6;
             return function (){
                 this.num *= 5;
                 num += 6;
