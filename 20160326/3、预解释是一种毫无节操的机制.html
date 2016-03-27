@@ -10,10 +10,10 @@
 
     //1、在预解释的时候,不管条件是否成立,都要进行预解释
     //预：var num; ->window.num=undefined  ->"num" in window ->true
-    //    if (!("num" in window)) {
-    //        var num = 12;
-    //    }
-    //    console.log(num);//->undefined
+       if (!("num" in window)) {
+           var num = 12;
+       }
+      console.log(num);//->undefined
 
     //->in:用来检测某一个属性名是否属于这个对象的
     //    var obj = {name: "张锋"};
@@ -23,13 +23,13 @@
     //    var name = "zhufeng";
     //    console.log(name in obj);//->"zhufeng" in obj
 
-    //    console.log(fn);//->undefined
-    //    fn();//->Uncaught TypeError: fn is not a function
-    //    if (1 > 1) {
-    //        function fn() {
-    //            console.log("ok");
-    //        }
-    //    }
+    /* console.log(fn);//->undefined
+        fn();//->Uncaught TypeError: fn is not a function
+       if (1 > 1) {
+          function fn() {
+              console.log("ok");
+          }
+       }*/
 
     //    console.log(num);//->undefined
     //    if (1 > 1) {
