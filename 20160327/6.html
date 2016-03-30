@@ -10,9 +10,11 @@
         this.x = 100;
         this.getX = function () {
             console.log(this.x);
-        }
+        };
+
     }
     var f1 = new Fn();
+    f1.getX();
     var f2 = new Fn;//->在构造函数模式中,如果方法不需要传递参数,那么后面的小括号可加也可以不加
 
     //3、在构造函数模式中,通过this.xxx=xxx给实例增加的属性和方法都是自己实例"私有的属性和方法"
