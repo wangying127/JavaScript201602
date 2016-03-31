@@ -39,7 +39,7 @@
     //排序的话得调用数组sort
     //1.类数组转化成数组
     var ary = listToArray(oLis);
-    //2.下面开始操作是ary,跟上面的这个oLis没有关系
+    //2.下面开始操作是ary,跟上面的这个oLis没有关系, 把他们的内容获取到进行排序
     ary.sort(function (a, b) {
         return a.innerHTML - b.innerHTML;
     })
