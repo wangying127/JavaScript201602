@@ -29,9 +29,9 @@
 
     //3、借用Math.max/Math.min ->apply在传递值的时候需要把传递的那些值,放在一个数组中，但是也相当于在一个个的给传递值
     var ary = [12, 23, 14, 25, 13, 16];
-    var max = Math.max.apply(null, ary);
-    var min = Math.min.apply(null, ary);
-    console.log(max, min);//->25 12
+   // var max = Math.max.apply(null, ary);
+   // var min = Math.min.apply(null, ary);
+   // console.log(max, min);//->25 12
 
     //->Math.max(12, 23, 14, 25, 13, 16);
 
@@ -42,9 +42,9 @@
     //    max = Math.max("12, 23, 14, 25, 13, 16");
     //    console.log(max);//->NaN
 
-    //    max = Math.max(eavl("12, 23, 14, 25, 13, 16"));
-    //    max = Math.max(16);
-    //    console.log(max);//->16
+       max = Math.max(eval("12, 23, 14, 25, 13, 16"));
+        max = Math.max(16);
+       console.log(max);//->16
 
     //    var max = eval("Math.max(" + ary.toString() + ")");
     //    console.log(max);//->25

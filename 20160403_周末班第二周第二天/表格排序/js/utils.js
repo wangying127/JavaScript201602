@@ -2,7 +2,6 @@ var utils = (function () {
     return {
         //->listToArray:实现将类数组转换为数组
         listToArray: function (likeAry) {
-
             if (typeof likeAry === "undefined") {
                 throw new Error("参数不合法~~");
             }
