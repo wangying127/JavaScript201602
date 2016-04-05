@@ -9,7 +9,7 @@ var jsonData = null;
 ~function () {
     var xhr = new XMLHttpRequest;
     xhr.open("get", "json/userInfo.txt", false);
-     xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
             var str = xhr.responseText;
             jsonData = utils.formatJSON(str);
@@ -20,7 +20,7 @@ var jsonData = null;
 
 //2、绑定数据
 ~function () {
-    var frg = document.createDocumentFragment();//->创建一个文档碎片用来临时的存储我们创建的tr
+    var frg = document.createDocumentFragment();
     for (var i = 0, len = jsonData.length; i < len; i++) {
         var curData = jsonData[i];
         curData["sex"] = curData["sex"] == 0 ? "男" : (curData["sex"] == 1 ? "女" : "未知");
@@ -47,22 +47,23 @@ changeBg();
 
 //4、实现排序
 function sortTab(n) {
-    //在点击当前列的时候,让其他类的flag都回归初始值-1即可
     for (var k = 0; k < oThs.length; k++) {
-        k != n ? oThs[k].flag = -1 : null;
+        k != n ? oThs[k].flag = false : null;
     }
 
-    var _this = this;
-    _this.flag *= -1;
-
     var ary = utils.listToArray(oRows);
-    ary.sort(function (a, b) {
-        var curInn = a.cells[n].innerHTML, nexInn = b.cells[n].innerHTML, curInnNum = parseFloat(curInn), nexInnNum = parseFloat(nexInn);
-        if (isNaN(curInnNum) || isNaN(nexInnNum)) {
-            return (curInn.localeCompare(nexInn)) * _this.flag;
-        }
-        return (curInnNum - nexInnNum) * _this.flag;
-    });
+    if (!this.flag) {
+        ary.sort(function (a, b) {
+            var curInn = a.cells[n].innerHTML, nexInn = b.cells[n].innerHTML, curInnNum = parseFloat(curInn), nexInnNum = parseFloat(nexInn);
+            if (isNaN(curInnNum) || isNaN(nexInnNum)) {
+                return curInn.localeCompare(nexInn);
+            }
+            return curInnNum - nexInnNum;
+        });
+        this.flag = true;//->已经点击过了
+    } else {
+        ary.reverse();
+    }
 
     var frg = document.createDocumentFragment();
     for (var i = 0, len = ary.length; i < len; i++) {
@@ -76,22 +77,12 @@ function sortTab(n) {
 for (var i = 0, len = oThs.length; i < len; i++) {
     var curTh = oThs[i];
     if (curTh.className.indexOf("cursor") > -1) {
-        curTh.flag = -1;
         curTh.index = i;
+        curTh.flag = false;//->代表还没有点击过
         curTh.onclick = function () {
             sortTab.call(this, this.index);
         };
     }
 }
-
-//->我们第一次点击年龄,它的flag=1,实现了升序
-//->我点击性别,按照性别排,但是年龄那一列乱序了
-//->当我在点击年龄,此时应该重新按照升序排列,但是第一次的flag变为了1,点击其他列的时候一直没有改变,一直还是1,导致了在点击的时候是按照降序排列的...
-
-
-//->记住周老师的一句话:"一个人到底有多牛X，不在乎它工作了多长时间，也不在乎做了多少个牛X轰轰的项目，和学历、年龄没有半毛钱的关系，主要在于他是如何对待每一个项目的，有没有尽自己的最大努力和细心把项目做的接近完美"
-
-
-
 
 
