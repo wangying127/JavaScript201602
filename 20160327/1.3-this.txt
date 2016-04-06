@@ -25,7 +25,7 @@
   },10);
 
   ary.sort(function(a,b){
-     //第一个匿名函数(参数)在执行的时候里面的 this->window
+     //当做参数值传递进来的这个匿名函数在执行的时候，里面的this也是window this->window
   });
 
   ary.forEach(function(){
