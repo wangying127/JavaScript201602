@@ -67,7 +67,8 @@
             if (attr === "opacity") {
                 val = curEle.currentStyle["filter"];//->alpha(opacity=65.4321) ->在这个字符串中捕获到数字65.4321,然后在除以100
                 reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/;
-                val = reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+                console.log(reg.exec(val));
+               // val = reg.test(val) ? reg.exec(val)[1] / 100 : 1;
             } else {
                 val = curEle.currentStyle[attr];
             }
