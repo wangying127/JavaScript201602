@@ -122,7 +122,7 @@
         //->B:获取浏览器底边框距离BODY的上偏移
         var b = utils.win("clientHeight") + utils.win("scrollTop");
         //->如果A<B才把当前的图片进行延迟加载
-        if (a < b) {
+        if (a <= b) {
             var oImg = new Image;
             oImg.src = curImg.getAttribute("zhufengImg");
             curImg.isLoad = true;

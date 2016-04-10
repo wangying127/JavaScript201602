@@ -28,7 +28,8 @@
 <script type="text/javascript">
     //->JS盒子模型:JS中提供一系列的属性,让我们获取到CSS盒子模型中的相关样式的值
     var box = document.getElementById("box");
-
+    console.log(box.offsetLeft);
+    console.log(box.offsetTop);
     //->内容高度:在样式中设置了具体的值,那么不管内容多了还是少了,高度都是我们设置的那个值;如果没有设置具体的高度,获取的结果是实际内容撑开的高度;
     //->真实内容高度:不管是否在样式中设置了高度值,内容如果有益处,也需要把溢出内容的高度加上
 
@@ -42,6 +43,7 @@
     //2、offset系列:offsetHeight/offsetWidth/offsetTop/offsetLeft/offsetParent
 
     //->offsetWidth/offsetHeight:clientWidth(clientHeight)+左右(上下)的边框
+    //->offsetTop/offsetLeft:盒子外边框到参照物内边框的的距离
     //内容是否有益处对于最后的结果是没有任何的影响的
 
     //3、scroll系列:scrollHeight/scrollWidth/scrollTop/scrollLeft

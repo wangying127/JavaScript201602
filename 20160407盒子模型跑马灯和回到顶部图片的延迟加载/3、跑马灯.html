@@ -71,14 +71,24 @@
     var boxCon = document.getElementById("boxCon");
     var boxCon_begin = document.getElementById("boxCon_begin");
     var boxCon_begin_width = utils.getCss(boxCon_begin, "width");
-    var timer = window.setInterval(function () {
-        var curLeft = boxCon.scrollLeft;
-        if (curLeft >= boxCon_begin_width) {
-            boxCon.scrollLeft = 0;
-            return;
-        }
-        boxCon.scrollLeft = ++curLeft;
-    }, 5);
+    console.log(boxCon_begin_width);
+    function move() {
+                var curLeft = boxCon.scrollLeft;
+                if (curLeft >= boxCon_begin_width) {
+                    boxCon.scrollLeft = 0;
+                    return;
+                }
+                boxCon.scrollLeft = ++curLeft;
+            }
+    var timer = window.setInterval(move, 5);
+    console.log(timer);
+    boxCon_begin.onmousemove=function(){
+        clearInterval(timer);
+    };
+    boxCon_begin.onmouseout=function(){
+       timer = window.setInterval(move, 5);
+    };
+
 
     //->每当到末尾,都需要重新的新增加一个p标签,这样导致了时间过长,页面中会增加很多很多很多的p
     //    var timer = window.setInterval(function () {
