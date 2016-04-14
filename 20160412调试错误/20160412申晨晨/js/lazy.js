@@ -3,21 +3,19 @@ var Img=div.getElementsByTagName("img");
 
 var jsonDate=null;
 !function(){
-   var xhr=new XMLHttpRequest();
-    xhr.open("get","json/json.txt",false);
-
-    xhr.onreadystatechange=function(){
-        if(xhr.readyState===4&&/^2\d+\{2}$/.test(xhr.status)){
-            var str=xhr.responseText;
-
-            jsonDate=utils.formatJSON(str);
-            console.log(jsonDate)
+    var xhr = new XMLHttpRequest;
+    xhr.open("get", "json/json.txt?_="+Math.random(),false);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && /^2\d+\{2}$/.test(xhr.status)) {
+            var str = xhr.responseText;
+            jsonDate = utils.formatJSON(str);
+            console.log(jsonDate);
         }
     };
     xhr.send(null)
 }();
 
-!function(){
+/*!function(){
     var str="";
     for(var i= 0;i<jsonDate.length;i++){
         var curDate=jsonDate[i];
@@ -74,7 +72,7 @@ function lazyImgAll(){
 }
 }
 window.setTimeout(lazyImgAll,500);
-window.onscroll=lazyImgAll;
+window.onscroll=lazyImgAll;*/
 
 
 

@@ -94,30 +94,32 @@
         news.innerHTML=str;
     }();
 
-
-
     function lazyImg(curEle){
-        if(curEle.isLoad){
-            return;
-        }
-        var curDiv=curEle.parentNode;
-        var a=curDiv.offsetHeight+utils.offset(curDiv).top,b=utils.win("clientHeight")+utils.win("scrollHeight");
-        if(a<b){
             var oImg=new Image;
             oImg.src=curEle.getAttribute("oldImg");
-            oImg.isLoad=true;
             oImg.onload=function(){
                 curEle.style.display="block";
                 curEle.src=this.src;
-                oImg=null
-            }
-        }
+                oImg=null;
+            };
+
+        oImg.isLoad=true;
     }
 
 
     function handleAllImg(){
-        for(var i= 0,len=imgList.length;i<len;i++){
-            lazyImg(imgList[i]);
+        for(var i= 0,len=imgList.length;i<len; i++) {
+            var curImg = imgList[i];
+            //console.log(curImg);
+            if (curImg.isLoad) {
+                continue;
+            }
+            var curDiv = curImg.parentNode;
+            var a = curDiv.offsetHeight + utils.offset(curDiv).top, b = utils.win("clientHeight") + utils.win("scrollTop");
+            if (a < b) {
+                lazyImg(imgList[i]);
+            }
+
         }
     };
     window.setTimeout(handleAllImg,1000);
