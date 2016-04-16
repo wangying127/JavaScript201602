@@ -15,7 +15,7 @@ var jsonDate=null;
     xhr.send(null)
 }();
 
-/*!function(){
+!function(){
     var str="";
     for(var i= 0;i<jsonDate.length;i++){
         var curDate=jsonDate[i];
@@ -72,7 +72,7 @@ function lazyImgAll(){
 }
 }
 window.setTimeout(lazyImgAll,500);
-window.onscroll=lazyImgAll;*/
+window.onscroll=lazyImgAll;
 
 
 

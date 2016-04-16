@@ -31,6 +31,7 @@ var utils = (function () {
             par = par.offsetParent;
         }
         return {left: disLeft, top: disTop};
+        //utils.offset(banner).top;
     }
 
     //->win:操作浏览器的盒子模型信息
@@ -41,6 +42,7 @@ var utils = (function () {
         document.documentElement[attr] = value;
         document.body[attr] = value;
     }
+    //utils.win("clientWidth")
 
     //->children:获取所有的元素子节点
     function children(curEle, tagName) {
@@ -66,7 +68,7 @@ var utils = (function () {
         }
         return ary;
     }
-
+    //utils.children(banner, "a")[0]
 
     //->prev:获取上一个哥哥元素节点
     //->首先获取当前元素的上一个哥哥节点,判断是否为元素节点,不是的话基于当前的继续找上面的哥哥节点...一直到找到哥哥元素节点为止,如果没有哥哥元素节点,返回null即可
