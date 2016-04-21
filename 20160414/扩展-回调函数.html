@@ -50,7 +50,7 @@
     //2、不管是forEach还是map都在IE6~8下不兼容(对象不支持“forEach”属性或方法->在Array.prototype上没有forEach这个方法)
     //console.dir("forEach" in Array.prototype); ->标准是true,IE6~8是false
     Array.prototype.myForEach = function myForEach(callBack, context) {
-        context = context || window;
+        context = context || window;//context就是this 可以传可以不传
         if ("forEach" in Array.prototype) {
             this.forEach(callBack, context);
             return;

@@ -96,6 +96,7 @@
             }
             //->实现焦点对齐
             for (i = 0, len = this.oLis.length; i < len; i++) {
+                //console.log(curLi);
                 var curLi = this.oLis[i];
                 i === this.step ? utils.addClass(curLi, "bg") : utils.removeClass(curLi, "bg");
             }

@@ -112,6 +112,7 @@ banner.onmouseout = function () {
 ~function () {
     for (var i = 0, len = oLis.length; i < len; i++) {
         var curLi = oLis[i];
+       // console.log(curLi);
         curLi.index = i;
         curLi.onclick = function () {
             step = this.index;
