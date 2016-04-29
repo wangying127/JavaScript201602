@@ -90,9 +90,11 @@ function fire(e) {
         e.target = e.srcElement;
         e.pageX = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
         e.pageY = e.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
+        //阻止默认行为
         e.preventDefault = function () {
             e.returnValue = false;
         };
+        //阻止冒泡传播
         e.stopPropagation = function () {
             e.cancelBubble = true;
         };

@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+div{ width:100px; height:100px; position:absolute; left:100px; top:100px; background:red; cursor:move; -webkit-user-select:none;}
+</style>
+</head>
+
+<body>
+<div id="div1"><img src="image1.gif"></div>
+<div id="div2" style="left:300px; top:50px; background:blue;"> <img src="image3.gif"></div>
+<div id="div3" style="top:300px; background:green;"><img src="image2.jpg" width="100" height="100"></div>
+</body>
+</html>
+<script src="event.abc"></script>
+<script>
+//mousedown :准备拖拽--把盒子的原始位置和鼠标的原始位置保存下来；并且绑定mousemove事件
+ //mousemove事件不是孤立的，它必须是在鼠标按下的时候，才能够使mousemove事件起作用，并且鼠标抬起来的时候，拖拽结束。
+ //也就是说拖拽是三个事件的组合
+//mousemove :拖拽进行中--不断计算当前盒子应该到达的位置
+//mouseup   :结束拖拽----主要是移除mousemove事件上绑定的方法
+
+function down(e){
+	this.x=this.offsetLeft;
+	this.y=this.offsetTop;
+	this.mx=e.pageX;
+	this.my=e.pageY;
+	if(this.setCapture){
+		this.setCapture();
+		on(this,"mousemove",move);
+		on(this,"mouseup",up);
+	}else{
+		/*
+		this;
+		123;
+		"abc"
+		
+		//生成一个新的方法：让原来的方法在功能上不变，但是运行的时候，this关键字指向指定的对象
+		//var _this=this;
+		//this.MOVE=function(e){move.call(_this,e);this}
+		//this.UP=function(e){up.call(_this,e)}
+		function processThis(fn,obj){
+			return function(e){fn.call(obj,e)}
+		}
+		this.MOVE=processThis(move,this);
+		this.UP=processThis(up,this);
+		*/
+		
+		//Function.prototype.bind功能相当于上边定义的processThis方法
+		this.MOVE=move.bind(this);
+		this.UP=up.bind(this);		
+		
+		on(document,"mousemove",this.MOVE);
+		on(document,"mouseup",this.UP);
+	}
+	
+	e.preventDefault();
+}
+
+function move(e){
+	this.style.left=this.x+(e.pageX-this.mx)+"px";
+	this.style.top=this.y+(e.pageY-this.my)+"px";	
+}
+
+function up(e){
+	if(this.releaseCapture){
+		this.releaseCapture();
+		off(this,"mousemove",move);
+		off(this,"mouseup",up);
+	}else{
+		off(document,"mousemove",this.MOVE);
+		off(document,"mouseup",this.UP);	
+	}
+	
+}
+
+
+var eles=document.getElementsByTagName("div");
+for(var i=0;i<eles.length;i++){
+	on(eles[i],"mousedown",down);	
+}
+//6-8ms
+</script>

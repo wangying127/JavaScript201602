@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+#div1{ width:100px; height:100px; background:red; position:absolute; left:100px; top:100px; cursor:move; -webkit-user-select:none;}
+</style>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="event.abc"></script>
+<script>
+//面向对象版的拖拽
+//一、最大的难点在于类的方法里的this不再是被拖拽的元素，而是指类的实例。
+	//一.1在做事件绑定的时候，this会指向被绑定的元素，这也会和面向对象编程规范冲突，如果出现冲突，强制使类上的方法里的this指向类的实例（一定要遵循：类方法里的this要指向类的实例这个原则）
+//二、面向对象最大的优点是在管理和组织类上的方法上，而非逻辑。如果一个仅仅是实现一个功能，使用面向对象是很差的选择
+//三、面向对象的编程风格会使代码的可读性变差
+
+function Drag(ele){//构造函数：初始化实例--配置环境--或叫：做一些准备的工作
+	//this  ele
+	this//this是上下文，它是这个拖拽活动的主体，它承载和拖拽相关的所有的信息
+	this.ele=ele;
+	this.x=null;//保存盒子的原始位置的
+	this.y=null;
+	this.mx=null;
+	this.my=null;
+	this.DOWN=processThis(this.down,this);
+	this.MOVE=processThis(this.move,this);
+	this.UP=processThis(this.up,this);
+	on(this.ele,"mousedown",this.DOWN);//如果用这样的方式绑定，那down运行的时候，down里的this是谁呢？
+	//无论如何，类的方法里的this一定要指向类的实例
+	/*
+	on(ele,"mousedown",this.down);
+	
+	var down=this.down;
+	on(this.ele,"mousedown",down);
+	//大家来对比31和35行代码，你说是把this.down绑定给了ele呢，还是把down绑定给了ele？这两种不同形式的绑定有没有区别呢？
+	on(this.ele,"mousedown",down);
+	请张三.弟弟.八大姨.三女儿.婆婆吃饭
+	*/
+}
+
+Drag.prototype.down=function(e){
+	//this是类的实例，不能是被拖拽的DOM元素
+	this.x=this.ele.offsetLeft;
+	this.y=this.ele.offsetTop;
+	this.mx=e.pageX;
+	this.my=e.pageY;
+	if(this.ele.setCapture){
+		on(this.ele,"mousemove",this.MOVE);
+		on(this.ele,"mouseup",this.UP);
+		this.ele.setCapture();	
+	}else{
+		on(document,"mousemove",this.MOVE);
+		on(document,"mouseup",this.UP);
+	}
+	e.preventDefault();	
+}
+
+Drag.prototype.move=function(e){
+	this.ele.style.left=this.x+(e.pageX-this.mx)+"px";
+	this.ele.style.top=this.y+(e.pageY-this.my)+"px";
+}
+
+Drag.prototype.up=function(e){
+	if(this.ele.releaseCapture){
+		this.ele.releaseCapture();
+		off(this.ele,"mousemove",this.MOVE);
+		off(this.ele,"mouseup",this.UP);
+	}else{
+		off(document,"mousemove",this.MOVE);
+		off(document,"mouseup",this.UP);
+	}
+}
+
+new Drag(div1);
+
+
+</script>

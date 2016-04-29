@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+</body>
+</html>
+<script>
+
+on,off,bind,unbind,fire;
+
+function bind(ele,type,fn){};
+function unbind(ele,type,fn){};
+/*
+//fn1,..... fn10
+ele.attachEvent("onclick",fn1);
+ele.attachEvent("onclick",fn2);
+ele.attachEvent("onclick",fn3);
+ele.attachEvent("onclick",fn4);
+
+ele.attachEvent("onclick",fn10);
+
+
+var a=[];//程序池
+
+a.push(fn1);
+
+......
+
+a.push(fn10);
+
+//click事件触发了----通过一个中间环节（函数）---去遍历执行保存数组a中的那些方法
+
+fire--中间环节
+
+ele.attachEvent("onclick",fire);
+
+function fire(){
+	for(var i=0;i<a.length;i++){
+		a[i]();	
+	}
+}
+
+
+*/
+
+
+
+//on负责解决IE中绑定的事件执行的顺序问题
+function on(ele,type,fn){
+	if(!ele["aEvent"+type]){
+		//type起区分符的作用，aEvent前缀是为了最大可能避免和系统自带的属性的作用
+		ele["aEvent"+type]=[];
+		ele.attachEvent("on"+type,function(){fire.call(ele)});
+	}
+	var a=ele["aEvent"+type];
+	//避免重复绑定的判断
+	for(var i=0;i<a.length;i++){
+		if(a[i]==fn)return;			
+	}
+	a.push(fn);
+	//无论on执行多少次，必须保证这个被“变形”的fire方法只在相同的事件上被触发一次
+	//在这个on方法里，想办法：无论on执行多少次，只让fire方法被在同一个事件上绑定一次
+	//ele.attachEvent("on"+type,function(){fire.call(ele)});
+}
+
+on(ele,"click",fn1);
+
+on(ele,"click",fn2);
+//......
+on(ele,"click",fn1)
+on(ele,"click",fn10);
+
+//context上下文，函数，断言，句柄----方法的引用，方法名，handler 
+
+//断言  assert  前提，前提条件,方法执行的必要前提条件，但是不参与方法本身
+
+/*
+function bind(ele,type,handler){//句柄,方法的引用
+
+	if(ele.addEventListener){
+		ele.addEventListener(type,handler,false);	
+	}else{
+		
+		if(!ele["aBind"+type]){
+			ele["aBind"+type]=[];	
+		}
+		var a=ele["aBind"+type];
+		
+		for(var i=0;i<a.length;i++){
+			if(a[i].photo==handler)return;	
+		}
+		var fnTemp=function(){handler.call(ele)}
+		fnTemp.photo=handler;
+		a.push(fnTemp);
+		
+		ele.attachEvent("on"+type,fnTemp);
+		
+		ele.attachEvent("on"+type,function(){handler.call(ele)});
+	
+	}
+	
+	
+}
+
+function unbind(ele,type,handler){
+
+	if(ele.removeEventListener){
+		ele.removeEventListener(type,handler,false);	
+	}else{
+		ele.detachEvent("on"+type,handler);	
+	}
+	
+}
+*/
+function fire(){
+	var e=window.event;
+	var type=e.type;
+	var a=this["aEvent"+type]//ele["aEvent"+"click"]
+	
+	for(var i=0;i<a.length;i++){
+		a[i].call(this,e);	//不是a里有重复的方法，是由于fire的重复执行，导致的a里的方法被重执行。
+		//关键问题在于：要避免fire方法重复执行
+	}
+}
+
+
+function off(){
+	
+}
+
+
+
+
+
+
+
+</script>
