@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        var getXHR = (function () {
+            if (window.XDomainRequest) {
+                return function () {
+                    return new XDomainRequest();
+                }
+            } else if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest;
+                if ('withCredentials' in xhr) {
+                    return function () {
+                        return new XMLHttpRequest();
+                    }
+                }
+            }
+            throw new Error('不支持cors功能');
+        })();
+        window.onload = function () {
+            var xhr = getXHR();
+            xhr.withCredentials = true;
+            xhr.open('post', 'http://www.a.com:8080/cors');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

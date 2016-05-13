@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../libs/obama.js"></script>
+    <script>
+        //        x.ajax({
+        //            // 请求路径
+        //            url:'',
+        //            // http method
+        //            method:'',
+        //            // 往服务器发送的数据
+        //            data:{},
+        //            // 成功时执行的函数
+        //            success:function(){
+        //
+        //            },
+        //            // 失败时执行的函数
+        //            error:function(){
+        //
+        //            },
+        //            username:'',
+        //            password:'',
+        //            // 自定义的请求首部
+        //            headers:{},
+        //            // 是否为异步请求
+        //            async:true,
+        //            // 超时毫秒数
+        //            timeout:0,
+        //            // 是否缓存
+        //            cache:true,
+        //            // 是否格式化data为URI string格式
+        //            processData:true,
+        //            // 按照什么样的格式来处理服务器返回的数据
+        //            dataType:'json'
+        //        })
+
+        x.ajax({
+            url: 'data.json',
+            method: 'get',
+            data: {a: 1, b: 2},
+            headers: {zhangyatao: 123},
+            async: true,
+            cache: false,
+            timeout: 3000,
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (err) {
+                console.error(err)
+            },
+            dataType: 'json'
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

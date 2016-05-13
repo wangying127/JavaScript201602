@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tel-info {
+            padding: 10px 10px;
+            border: 1px solid #ccc;
+            width: 350px;
+            font-size: 14px;
+        }
+
+        .tel-address {
+            font-size: 12px;
+            color: #cccccc;
+            line-height: 30px;
+        }
+    </style>
+    <script src="jsonp.js"></script>
+</head>
+<body>
+<label>手机号码：<input id="search" type="tel"></label>
+<input type="button" id="searchBtn" value="查询手机号归属地">
+
+<div class="tel-info">
+    <p class="tel-address">手机归属地</p>
+
+    <p>手机号码"<span node-type="tel"></span>"
+        <span node-type="province"></span>
+        <span node-type="type"></span>
+    </p>
+</div>
+</body>
+</html>
+<script>
+    window.onload = function () {
+        var search = document.querySelector('#search');
+        var searchBtn = document.querySelector('#searchBtn');
+        var telNum = document.querySelector('span[node-type="tel"]');
+        var telProvince = document.querySelector('span[node-type="province"]');
+        var telType = document.querySelector('span[node-type="type"]');
+
+        searchBtn.onclick = function () {
+            var val = search.value;
+            if (val) {
+                jsonp('https://tcc.taobao.com/cc/json/mobile_tel_segment.htm', {tel: val},
+                        'callback',
+                        function (data) {
+                            if(data.province&&data.catName){
+                                telNum.innerHTML = val;
+                                telProvince.innerHTML = data.province;
+                                telType.innerHTML = data.catName;
+                            }else{
+                                telNum.innerHTML="该号码不存在";
+                                telProvince.innerHTML = '';
+                                telType.innerHTML = '';
+                            }
+
+                        });
+            }
+        }
+    }
+</script>

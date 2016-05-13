@@ -1,0 +1,35 @@
+跨域资源共享
+cross origin resource sharing => CORS
+
+是利用浏览器提供的API实现的跨域。
+
+兼容性：ie8+
+
+标准浏览器： 判断XMLHttpRequest实例是否含有withCredentials属性
+如果含有该属性 说明支持CORS
+
+withCredentials(携带凭据，请求首部中是否携带cookie)默认值为false
+
+ie中：XDomainRequest
+
+使用此功能 前提需要server在响应首部中添加
+Access-Control-Allow-Origin 这个首部可以传两种类型的值
+*/origin
+
+如果把withCredentials设置为true。Access-Control-Allow-Origin响应首部不能设置为* 只能设置为指定的origin
+并且设置Access-Control-Allow-Credentials为true
+
+
+jsonp和cors的区别？
+相同点：
+1、都是为了解决接口级别的跨域请求
+2、都需要server端强配合。(任何跨域方式都需要server端强配合、任何跨域方式都需要server端强配合、任何跨域方式都需要server端强配合)
+不同点：
+1、http method使用范围：
+    jsonp只能使用get方法，而cors是get、post、head、delete、put都可以使用。
+2、兼容性
+    jsonp没有兼容性，而cors能使在ie8+的浏览器中使用
+3、响应首部
+    jsonp不需要添加额外的响应首部，而cors需要添加最少一个响应首部
+4、性质
+    jsonp不是ajax，而cors是ajax

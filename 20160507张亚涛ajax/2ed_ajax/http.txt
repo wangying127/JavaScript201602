@@ -1,0 +1,167 @@
+1、为什么要讲http？
+如果想要学好ajax，掌握http是十分必要的。因为ajax内部操作的就是http。
+
+什么是http？
+超文本传输协议 hypertext transport protocol
+
+
+URL 统一资源定位符
+port:http默认port为80  https默认port为443
+param: param1=value1&param2=value2... 该格式不能更改 => URI格式
+<scheme>://<username>:<password>@<hostname>:<port><path>?<querystring>#<hash>
+
+dns解析：
+把一个域名解析成一个ip的过程
+
+http的构成
+
+网络七层协议
+1、物理层 网卡
+2、链路层 网卡驱动
+3、网络层 ip
+4、传输层 tcp/udp 传输协议
+5、会话层 保持会话/断开会话 系统OS xxx.msi
+6、加密层 加密解密 对称加密/非对称加密
+7、应用层 http https ftp smtp等等等
+
+https:加密过的http 用的是非对称加密 RSA算法
+http + ssl/tsl
+
+http是一个事务。事务和事件的区别？
+事务是事件的集合，包含n+1个事件。只有当这n+1个事件全部完成的时候，事务才算成功，否则事务就算做失败。
+
+http包含两个事件 request和response 顺序是固定的 先有请求再有响应
+
+response和request都包含哪些部分？
+1、起始行 这个请求或响应的摘要信息
+2、首部  这个请求或响应的基本信息 key:value
+3、主体  这个请求或响应的数据的承载主体
+
+http版本号
+0.9 1.0 1.1 2.0
+http1.1和2.0的区别？赶集网 美团网
+1、多路复用
+2、首部压缩
+3、服务器推送
+
+什么是mimeType？
+因特网多媒体邮件扩展
+标识内容是什么格式。告诉浏览器或者server如何解析该数据
+http的请求和想都含有一个mimeType字段 => content-type(通用首部)
+
+都有一个固定的格式
+html text/html
+css text/css
+js text/javascript
+png image/png
+jpg image/jpeg
+mp4 video/mp4
+MP3 video/mp3
+二进制 application/octet-stream
+json application/json
+
+格式:大类型/小类型
+
+*请求可以不带content-type但是响应一定要带content-type。否则浏览器无法正确解析该数据。
+
+页面的同步请求和异步请求？
+同步：当前页面内的任何一个操纵都需要重新刷新页面。jsp asp asp.NET
+异步：不需要每次刷新页面，只需要加载指定的内容即可。
+
+http method：
+1、get 从服务器获取资源
+2、post  向服务器发送资源
+3、put  向服务器推送资源
+4、delete  告诉服务器删除某个资源
+5、head  告诉服务器返回数据时不需要返回响应主体。只返回起始行和首部即可。
+6、options  检测服务器支持哪些http方法
+
+GET方法的特点：
+一、没有请求主体。
+二、会把查询条件格式化为URI的格式拼接到url后面
+三、有大小限制。因为浏览器对url的长度有限制。所以造成了get请求有大小限制。chrome 8k ie 2k firefox 7k
+四、明文发送。不安全。安全性比较差
+五、容易被浏览器缓存。
+六、浏览器默认全是get请求
+
+POST方法的特点：
+一、有请求主体。
+二、没有大小限制。因为它把数据全部放到请求主体之中。而浏览器对请求主体是没有大小限制的。
+三、不是明文发送。安全性较强。
+四、不会被浏览器缓存。
+
+PUT方法的特点
+一、有请求主体。
+二、没有大小限制。因为它把数据全部放到请求主体之中。而浏览器对请求主体是没有大小限制的。
+三、不是明文发送。安全性较强。
+四、不会被浏览器缓存。
+五、成功返回状态码为202
+
+
+DELETE方法的特点(和get方法类似)
+一、没有请求主体。
+二、会把查询条件格式化为URI的格式拼接到url后面
+三、有大小限制。因为浏览器对url的长度有限制。所以造成了get请求有大小限制。chrome 8k ie 2k firefox 7k
+四、明文发送。不安全。安全性比较差
+五、容易被浏览器缓存。
+六、浏览器默认全是get请求
+七、成功返回状态码为202
+
+HEAD方法的特点(和get方法类似) 获取服务器事件  下载之前获取下载文件名和文件大小
+一、没有请求主体。
+二、会把查询条件格式化为URI的格式拼接到url后面
+三、有大小限制。因为浏览器对url的长度有限制。所以造成了get请求有大小限制。chrome 8k ie 2k firefox 7k
+四、明文发送。不安全。安全性比较差
+五、容易被浏览器缓存。
+六、浏览器默认全是get请求
+七、没有响应主体。
+
+OPTIONS方法特点
+一、没有响应主体
+二、会把服务器支持哪些http方法放在响应首部中。
+
+get系方法和post系方法
+get系：get、head、delete
+post系：post、put
+
+为什么要设计这么多http方法？
+各司其职。
+CRUD
+/rest/1.0/userinfo
+增加 post /rest/1.0/userinfo {name:'',sex:'',age:''}
+删除 delete /rest/1.0/userinfo?id=1
+修改 put /rest/1.0/userinfo?id=1 {name:'',sex:'',age:''}
+查询 get /rest/1.0/userinfo?id=2
+
+这是软件设计架构。叫restful 表征状态转移
+
+http状态码：
+标识server处理的状态。
+1xx、http正在初始化。在http2.0中已经把1xx的状态码删掉。但是还有一个例外就是websocket
+    101
+2xx、客户端成功。
+    200 OK 成功
+    202 accepted 接受
+3xx、重定向
+    301 永久转移
+    302 临时转移
+    301和302都有一个共同的特点：从站点a跳转到站点b
+    304 未修改 缓存 要注意304的原理是什么？
+4xx、客户端错误
+    400 错误的请求 端口不正确或者参数不正确
+    401 未认证 没有登录信息
+    403 禁止访问 没有权限
+    404 未找到 该资源未找到
+5xx、服务器错误
+    500 内部服务器错误
+    503 连接数过多
+
+
+ajax的同步和异步？
+同步和异步统一根据send()执行的位置来实现分隔逻辑
+同步：
+1、send()后统一不会被执行，直到http事务完成之后才会之后后续逻辑
+2、阻塞send()后面的逻辑
+异步：
+1、send()后面照样执行。
+2、不会阻塞send()后面的逻辑

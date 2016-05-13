@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.js"></script>
+    <script>
+        var ajax = function () {
+            return $.post('../ajax/data.json');
+        };
+        $(function () {
+            // 利用promise实现链式调用
+            $.post('../ajax/data.json').done(function (data) {
+                console.log(data)
+            }).fail(function (err) {
+                console.error(err);
+            }).always(function () {
+                console.info('always');
+            });
+        });
+
+        // promise就是为了解决回调金字塔
+//        $.get('1',function(){
+//            $.get('2',function(){
+//                $.get('3',function(){
+//                    $.get('4',function(){
+//
+//                    })
+//                })
+//            })
+//        })
+
+        $('1',function(data){
+            // 处理1的data
+            return $('2')
+        }).done(function(){
+            // 处理2的data
+            return $('3')
+        }).done(function(){
+            // 处理3的data
+            return $('4')
+        }).done(function(){
+            // 处理4的data
+
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

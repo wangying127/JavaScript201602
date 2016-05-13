@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.js"></script>
+    <script>
+        var ready = function (callback) {
+            var isReady = false;
+            // isReady为true 说明dom树已经加载完成，直接执行callback
+            if (isReady) {
+                callback();
+                return;
+            }
+            if (window.addEventListener) {
+                // 只要触发该事件说明dom树已经加载完成
+                window.addEventListener('DOMContentLoaded', function () {
+                    isReady = true;
+                    callback();
+
+                }, false);
+            } else {
+                var timeout = 0;
+                // 只要有onreadystatechange 肯定会有readyState
+                document.onreadystatechange = function () {
+                    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+                        isReady = true;
+                        clearTimeout(timeout);
+                        callback();
+                    }
+                };
+
+                timeout = setTimeout(function () {
+                    try {
+                        // doScroll是ie独有的一个事件
+                        // 特点：当dom树没有加载完成之前执行doScroll会报错。
+                        // 也就是说 当执行doScroll不报错的时候，就是dom树加载完成的时候
+                        document.documentElement.doScroll('left');
+                        isReady = true;
+                        document.onreadystatechange = null;
+                        callback();
+                    } catch (ex) {
+                        timeout = setTimeout(arguments.callee, 50);
+                    }
+                }, 50)
+            }
+        };
+
+
+        ready(function () {
+            // jquery处理ajax的方法
+            // 参数多说明可配置性很强，可以完成各种奇葩需求
+            $.ajax({
+                // 设置请求首部中的Accept
+                // mimeType
+                // 该请求希望server返回什么类型的mimeType
+                accepts: 'application/json',
+                // 是否为异步请求
+                async: true,
+                // 在执行ajax的send()之前 调用此函数
+                // 用处：显示loading效果
+                beforeSend: function (xhr) {
+
+                },
+                // 是否缓存该请求
+                cache:false,
+                // 不管成功还是失败都会执行此函数
+                // 用处：关闭loading效果
+                complete:function(xhr){
+                    console.log(this);
+                },
+                // 请求首部中的content-type
+                // jquery默认所有的ajax请求全是表单提交
+                contentType:'application/x-www-form-urlencoded',
+                // 上下文，标识success、error、complete这三个函数中的this指向
+                context:$(div),
+                // 往服务器发送的参数
+                data:'A=1&B=2',
+                // 按照指定格式，来格式化响应主体
+                dataType:'text',
+                // ajax失败时执行此函数
+                error:function(err){
+
+                },
+                // ajax成功时执行此函数
+                success:function(data){
+
+                },
+                // 自定义请求首部
+                headers:{},
+                // http method
+                // jquery 1.9之前使用type 1.9之后使用method
+                method:'get',
+                // 重写server返回的mimeType
+                // 原生使用overrideMimeType()
+                mimeType:'',
+                username:'',
+                password:'',
+                // 如果data为一个对象，是否格式化为uri string格式
+                processData:true,
+                // 设置的超时毫秒数。默认为0 表示不执行超时逻辑
+                timeout:3000,
+                // ajax请求的路径
+                url:''
+            });
+
+            /**
+             * 只用get方法请求服务器
+             * 第一个参数 请求的url
+             * 第二个参数 发送的数据
+             * 第三个参数 回调函数
+             * 第四个参数 dataType
+             */
+            $.get('url',{a:1,b:2},function(data){
+
+            },'json');
+
+
+            /**
+             * 只有post方法去请求服务器
+             */
+            $.post('url',{a:1,b:2},function(data){
+
+            },'json');
+        })
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

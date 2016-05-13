@@ -21,7 +21,6 @@ var server = http.createServer(function (request, response) {
     if (pathname === "/index.html") {
         //->客户端请求的地址是http://localhost/index.html,我们需要把index.html页面中的内容获取到并且返回给客户端进行渲染
         var con = fs.readFileSync("./index.html", "utf8");
-
         //->把获取的内容返回给客户端
         //1)编写响应头信息:第一个是网络状态码,第二个是响应给客户端内容的格式
         response.writeHead(200, {'content-type': 'text/html'});

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        // 1、获取cors对象
+        var xhr = null;
+        if (window.XMLHttpRequest) {
+            var _xhr = new XMLHttpRequest();
+            if (_xhr.withCredentials !== undefined) {
+                xhr = _xhr;
+            }
+        } else if (window.XDomainRequest) {
+            xhr = new XDomainRequest();
+        } else {
+            console.log('当前浏览器不支持CORS')
+        }
+        console.log(xhr);
+
+        // 2、执行open方法
+        // 含有5个参数 和ajax的open方法参数一模一样
+        xhr.open('post', 'data.json', true, '', '');
+
+        // 3、获取响应
+        // onload执行的时机相当于ajax的readyState为4的时候
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+
+            }
+        };
+
+        // 3、send方法
+        // send方法的注意事项和ajax对象一模一样
+        xhr.send();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

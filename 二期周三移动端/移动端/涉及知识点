@@ -1,0 +1,29 @@
+﻿1.涉及JS中获取DOM的思想
+2.JS中事件绑定，在jquery中：
+绑定事件绑定：on
+解除事件绑定：off
+如果两个事件都要进行解除，可以用class思想来完成；
+思考题：绑定事件除了on还有什么，他们有什么区别；
+3.用开关思想实现：一个页面只触发一次，不重复触发
+4.涉及事件详细信息-》可以通过打印得出；
+5.今天的运动知识及关闭
+1）transform ： translate（位移） scale(缩放)
+2）transition(通过控制transform来实现过渡效果)；- transitionend webkitTransitionEnd
+3）关键帧keyframes;
+关闭运动：
+'transition',''
+'transform',''
+6.三目（三元表达式）
+条件？语句1：null；
+&& -》 if()语句1
+|| -》else();
+if()...
+7.减慢速度step=1/4; 通过数字来控制运动；
+8.事件源 target；
+判断是否为这个标签 $li.is(ev.target);
+9.阻止默认事件
+ev.preventDefault;
+animate.css:https://daneden.github.io/animate.css/
+10.流程控制语句：循环，判断
+循环 while for for in do..while
+判断:if elseif ; switch; try..catch...;

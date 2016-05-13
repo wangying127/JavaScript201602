@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        /**
+         * ie7+ chrome firefox opera safari
+         * @type {XMLHttpRequest}
+         */
+        var xhr = new XMLHttpRequest();
+        /**
+         * 低版本ie
+         * @type {ActiveXObject}
+         */
+        var xhr2 = new ActiveXObject('Microsoft.XMLHTTP');
+        var xhr3 = new ActiveXObject('MsXML2.XMLHTTP');
+        var xhr4 = new ActiveXObject('MsXML3.XMLHTTP');
+
+        // ajax操作第二步 执行open方法
+        // 发送http的request 起始行
+        /**
+         * 第一个参数 http method
+         * 第二个参数 request url 请求的路径
+         * 第三个参数 是否为异步请求 默认为true
+         * 第四个参数 放到url上面的用户名 默认值undefined
+         * 第五个参数 放到url上面的密码 默认值undefined
+         */
+        xhr.open('get', 'request url', true, 'username', 'pwd');
+
+        // 设置自定义请求首部
+        /**
+         * 兼容性 ie8+
+         */
+        xhr.setRequestHeader('zhangyatao', '123');
+
+        // ajax第三步 接收响应
+        /**
+         * 每当xhr对象的readyState属性改变的时候，都会触发一次该方法。
+         */
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                // 标识http的事务完成
+                if (xhr.status === 200) {
+                    // 重写reponse 的 mimeType
+                    // 把application/json => text/plain
+                    xhr.overrideMimeType('text/plain');
+
+                    // 判断http response status code
+                    var response = xhr.responseText;
+                    // 获取响应主体
+
+                    // 获取所有响应首部
+                    var responseHeaders = xhr.getAllResponseHeaders();
+                    // 获取指定响应首部
+                    var responseHeader = xhr.getResponseHeader('content-type');
+                }
+            }
+        };
+
+        // xhr对象的readyState属性 标识当前xhr对象的执行状态
+        // 是用01234标识xhr对象的5种状态
+        /**
+         * 0 默认值 xhr对象刚实例化完成 可以用xhr.UNSENT来标识
+         * 1 执行完成open方法 可以用xhr.OPENED来标识
+         * 2 开始接收响应首部 可以用xhr.HEADERS_RECEIVED来标识
+         * 3 开始接收响应主体 可以用xhr.LOADING来标识
+         * 4 http事务完成 可以用xhr.DONE来标识
+         */
+
+
+        // ajax第四步  发送request完整请求
+        /**
+         * undefined null FormData string(URI格式) arraybuffer blob
+         * send方法会把参数放到request的请求主体里。
+         * 什么情况下需要传参数？
+         * 使用http post系方法才需要传参数
+         */
+        xhr.send();
+
+        // 强制终止http事务
+        xhr.abort();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

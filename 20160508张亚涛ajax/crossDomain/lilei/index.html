@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a.com</title>
+</head>
+<body>
+<!--<iframe src="http://www.b.com:8080/getJiaYao"></iframe>-->
+<!--<img src="http://www.b.com:8080/getJiaYao">-->
+<script>
+    var o={};
+    o.test=function(data){
+        console.log('成功获取韩梅梅的数据：',data);
+    };
+    console.info('声明window.test')
+</script>
+<script>
+    console.info('开始加载韩梅梅的接口');
+</script>
+<script src="http://www.b.com:8080/getJiaYao?listName=o.test"></script>
+<script>
+    // 问题1、韩梅梅假药名单给出的变量名是写死的。会导致被覆盖掉。
+    // 通过告诉韩梅梅假药名单名称的手段，来解决李雷这边假药名单被覆盖的问题。
+//    var abc='123';
+//    var list='这是李雷自己设置的list';
+//    console.log('通过a获取假药名单:',a);
+
+    // 问题2 因为韩梅梅的假药名单是0-10秒之间随机返回的。?
+    // 如何韩梅梅假药名单加载出来就立马显示。
+
+</script>
+</body>
+</html>

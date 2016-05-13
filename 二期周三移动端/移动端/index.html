@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640, user-scalable=no"/>
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        #main{
+            width:640px;
+            height:960px;
+        }
+        #main ul li{
+            position: absolute;
+            width:100%;
+            height:100%;
+            font-size: 100px;
+            color:#fff;
+            display: none;
+            left:0;
+            top:0;
+            z-index: 5;
+        }
+        #main ul li.zIndex{
+            z-index: 6;
+        }
+        #main ul li:nth-of-type(1){
+            background: darkmagenta;
+            display: block;
+        }
+        #main ul li:nth-of-type(2){
+            background: darkgreen;
+        }
+        #main ul li:nth-of-type(3){
+            background: darkred;
+        }
+        #main ul li:nth-of-type(4){
+            background: darkblue;
+        }
+        #main ul li:nth-of-type(5){
+            background: darkgoldenrod;
+        }
+        #main ul li:nth-of-type(6){
+            background: darkgray;
+        }
+        .p1_imgList{
+            width:490px;
+            margin: 0 auto;
+            height:151px;
+            position: relative;
+        }
+        .p1_imgList img{
+            width: 100%;
+            position: absolute;
+            left:0;
+            top:30px;
+        }
+        .p1_img1{
+            animation: 1s infinite imgActive;
+        }
+        @keyframes imgActive {
+            0%{transform: scale(1); opacity: 1;}
+            100%{transform: scale(1.2); opacity: 0;}
+        }
+        @-webkit-keyframes imgActive {
+            0%{transform: scale(1); opacity: 1;}
+            100%{transform: scale(1.2); opacity: 0;}
+        }
+        .p1_ball{
+            display: block;
+            width: 487px;
+            margin:100px auto;
+        }
+        .p1_footer{
+            position: absolute;
+            left:0;
+            bottom:-30px;
+        }
+        .p1_car{
+            position: absolute;
+            left:100px;
+            top:-120px;
+            animation-delay:1s;
+        }
+        .p1_arr{
+            display: block;
+            width: 90px;
+            height:52px;
+            z-index: 20;
+            position: absolute;
+            left:50%;
+            margin-left: -45px;
+            bottom:70px;
+            animation: 1s infinite arrMove;
+        }
+        @keyframes arrMove {
+            0%{transform: translateY(60px); opacity: 0}
+            50%{transform: translateY(30px); opacity: 0.8}
+            100%{transform: translateY(0); opacity: 0}
+        }
+        @-webkit-keyframes arrMove {
+            0%{transform: translateY(60px); opacity: 0}
+            50%{transform: translateY(30px); opacity: 0.8}
+            100%{transform: translateY(0); opacity: 0}
+        }
+    </style>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/index2.js"></script>
+</head>
+<body>
+<div id="main">
+    <ul id="list">
+        <li>
+            <div class="p1_imgList">
+                <img src="img/p1_head.png" alt=""/>
+                <img src="img/p1_head.png" alt="" class="p1_img1"/>
+            </div>
+            <img src="img/p1_ball1.png" alt="" class="p1_ball"/>
+            <div class="p1_footer">
+                <img src="img/p1_botBg.png" alt="" class="p1_earth animated bounceInUp"/>
+                <img src="img/p1_car.png" alt="" class="p1_car animated bounceInLeft"/>
+            </div>
+            <img src="img/arr.png" alt="" class="p1_arr"/>
+        </li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</div>
+</body>
+</html>

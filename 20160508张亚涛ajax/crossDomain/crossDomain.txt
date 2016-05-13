@@ -1,0 +1,47 @@
+什么是跨域？
+跨域也叫跨源
+
+
+url的基本组成部分：
+<scheme>://<hostname>:<port> 源(origin)
+
+从http://www.baidu.com -> https://www.baidu.com 叫做跨源(跨域)请求
+
+只要scheme、hostname、port这三个基本组成部分不一样，那么这个请求就叫做跨域请求。
+
+什么叫同源策略？
+浏览器厂商强制规定JavaScript可以处理哪些web内容的一个安全限制。
+
+李雷 a.com 卖假药
+韩梅梅 b.com 提供假药名单
+
+李雷的a.com需要从韩梅梅的b.com里获取假药名单
+
+李雷很聪明，一次尝试可以外部资源的DOM元素，来获取韩梅梅的假药名单。
+
+李雷通过依次尝试，总结了以下经验：
+可以外部资源的DOM元素特点：
+1、iframe
+虽然可以加载进来，但是无法操作。会触发同源策略的限制。
+2、img
+如果加载进来不是合法的图片，会出裂图。造成即看不见也没法操作。
+3、script
+一、会把加载进来的资源，强制当成脚本来执行。
+二、它不受同源策略的限制。
+
+
+jsonp的相关概念
+1、jsonp不是ajax，因为jsonp是利用script标签的特性来实现的跨域交互。和ajax没有任何关系。
+2、jsonp返回的数据必须是固定的格式 => functionName(json data);
+3、jsonp只能是get方法请求数据。因为浏览器强制当前html中加载外部资源只能是get方法。而jsonp的原理就是使用script来实现的。所以jsonp只能是get方法。
+4、get系含有的特点 jsonp全有。
+5、不安全。不要盲目使用未知网站提供的jsonp接口。
+
+
+jsonp名称的由来？
+functionName(json); => 在json数据前拼接一个方法名 => json padding a function name => json padding => jsonp.
+
+原理：
+1、利用script标签不受同源策略限制的特点，请求对方提供的jsonp接口。
+2、把双方约定好的jsonpcallback发送对方。
+3、对方服务器放回jsonpcallback传过来的函数名再加上需要放回的json数据就可以了。
