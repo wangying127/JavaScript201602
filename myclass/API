@@ -1,0 +1,18 @@
+1.分页的请求数据
+地址：/getDate
+类型：get
+方式：同源AJAX
+参数：/getDta？pageCount=10&pageNum=1
+pageCount每页展示多少条
+pageNum当前是第几页
+返回：{
+tatal：5  一共有多少页
+data：[
+        {
+         num:'001',
+         name:'张三'，
+         sex：0， ->0是男 1是女
+         score：80
+        }
+    ]
+}

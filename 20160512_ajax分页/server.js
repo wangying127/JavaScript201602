@@ -1,6 +1,7 @@
 var http = require("http");
 var url = require("url");
 var fs = require("fs");
+
 var server = http.createServer(function (request, response) {
     var urlObj = url.parse(request.url, true);
     var pathname = urlObj.pathname, query = urlObj.query;
