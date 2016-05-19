@@ -29,7 +29,26 @@
     //    console.log(total);//->null
 
 
-    function sum() {
+    function sum(){
+        var total=null;
+        for(var i=0; i<arguments.length;i++){
+            var cur=Number(arguments[i]);
+            if(!isNaN(cur)){
+                total+=cur;
+            }
+        }
+        return total;
+    }
+    console.log(sum(12,23,"30","珠峰"));
+
+
+
+
+
+
+
+
+   /* function sum() {
         var total = null;
         for (var i = 0; i < arguments.length; i++) {
             //->把传递进来的值转换为number类型的
@@ -47,7 +66,7 @@
         }
         return total;
     }
-    console.log(sum(10, 20, "30", "zhufeng"));//->60
+    console.log(sum(10, 20, "30", "zhufeng"));//->60*/
 </script>
 </body>
 </html>

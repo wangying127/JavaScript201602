@@ -34,7 +34,7 @@
         var bg = oDiv.style.backgroundColor;//->oDiv.style只能获取写在当前元素行内上的样式值
 
         //->根据当前的背景颜色进行判断,让其变为不同的背景颜色
-        if (bg === "red") {
+       /* if (bg === "red") {
             oDiv.style.backgroundColor = "green";
         } else if (bg === "green") {
             oDiv.style.backgroundColor = "blue";
@@ -42,7 +42,21 @@
             oDiv.style.backgroundColor = "black";
         } else {
             oDiv.style.backgroundColor = "red";
+        }*/
+        switch (bg){
+            case "red":
+                oDiv.style.backgroundColor = "green";
+                break;
+            case "green":
+                oDiv.style.backgroundColor = "blue";
+                break;
+            case "blue":
+                oDiv.style.backgroundColor = "black";
+                break;
+            default :
+                oDiv.style.backgroundColor = "red";
         }
+
     };
 </script>
 </body>

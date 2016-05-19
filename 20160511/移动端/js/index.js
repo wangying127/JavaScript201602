@@ -41,7 +41,7 @@ $(function(){
                 //实现位移： transform-translate; 实现缩放： transform-scale
                 $(this).css('transform','translate(0,'+(touch.pageY-touchY)*step+'px) scale('+(1-Math.abs(touch.pageY-touchY)/viewHeight*step)+')');
                 $li.eq(nextorprevIndex).addClass('zIndex').show();
-            })
+            });
             $li.on('touchend.move',function(ev){
                 var touch=ev.originalEvent.changedTouches[0];
                 if(touch.pageY<touchY) {//up
@@ -57,13 +57,13 @@ $(function(){
                 $li.off('.move');
             })
 
-        })
+        });
         $li.on('transitionend webkitTransitionend',function(ev){
             if(!$li.is(ev.target)){
                 return;
             }
             resetFn();
-        })
+        });
         function resetFn(){
             $li.css('transition','');
             $li.css('transform','');
@@ -73,4 +73,4 @@ $(function(){
         }
     }
 
-})
+});

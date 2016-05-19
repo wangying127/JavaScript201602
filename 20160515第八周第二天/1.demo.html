@@ -82,7 +82,7 @@
         var scale = desW/100;//等比缩放的比例
         //其他设备的根元素字体大小
         if(winW>desW){
-            document.documentElement.fontSize = "100px";
+            document.documentElement.style.fontSize = "100px";
         }else{
             document.documentElement.style.fontSize = winW/scale+"px";
         }

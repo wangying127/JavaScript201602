@@ -36,8 +36,24 @@
         obj[cur] = cur;
     }
     console.log(ary);
+  function arr(ary){
+      var obj={};
+      for(var i=0; i<ary.length;i++){
+          var cur=ary[i];
+          if(cur==obj[cur]){
+            ary[i]=ary[ary.length-1];
+              ary.length--;
+              i--;
+              continue;
+          }
+          obj[cur]=cur;
+      }
+      return ary;
+  }
 
-
+    var ary=[1,2,2,3,4,2,5];
+    arr(ary);
+    console.log(ary);
 </script>
 </body>
 </html>
