@@ -99,11 +99,22 @@ $(function () {
         var $pars = $tar.parents().add($tar);
         if ($pars.hasClass("inner") && /^(A|SPAN)$/i.test(tarTagName)) {
             //数据列表
-            tarTagName === "A" ? scrollToDate($tar.attr("date")) : scrollToDate($tar.parent().attr("date"));
+            //tarTagName === "A"? scrollToDate($tar.attr("date")): scrollToDate($tar.parent().attr("date"));
+           /* if(tarTagName === "A"){
+                scrollToDate($tar.attr("date"));
+                $tar.addClass("bg").siblings().removeClass("bg");
+            }else{
+                scrollToDate($tar.parent().attr("date"));
+                $tar.parent().addClass("bg").siblings().removeClass("bg");
+            }*/
+            tarTagName === "SPAN" ? $tar = $tar.parent() : null;
+            scrollToDate($tar.attr("date"));
+            $tar.addClass("bg").siblings().removeClass("bg");
             return;
         }
 
         if($pars.hasClass("calendarLeft") || $pars.hasClass("calendarRight")){
+            var $call = $.Callbacks();
             var curLeft = parseFloat($inner.css("left")), tarLeft = null;
             if ($pars.hasClass("calendarLeft")) {
                 if ($inner.attr("isMove") === "false") {
@@ -114,9 +125,7 @@ $(function () {
                     $inner.attr("isMove","true");
                     $inner.stop().animate({
                         left: tarLeft
-                    }, 500, function () {
-                        $inner.attr("isMove","false")
-                    });
+                    }, 500, $call.fire);
                 }
             }
             if ($pars.hasClass("calendarRight")) {
@@ -126,18 +135,22 @@ $(function () {
                     var maxLeft = parseFloat($inner.width()) - 105 * 7;
                     tarLeft = curLeft - 105 * 7;
                     Math.abs(tarLeft) >= maxLeft ? tarLeft = -maxLeft : null;
-                    $inner.attr("isMove","true")
+                    $inner.attr("isMove","true");
                     $inner.stop().animate({
                         left: tarLeft
-                    }, 500,function(){
-                        $inner.attr("isMove","false")
-                    })
+                    }, 500, $call.fire)
                 }
             }
             //无论左按钮还是右按钮我们都要重新绑定数据 我们都要获得起始索引
-            var strIndex = Math.abs(parseFloat($inner.css("left"))) / 105;
-            var endIndex = Math.abs(parseFloat($inner.css("left"))) / 105 + 6;
-            bindDate($calenderLink.eq(strIndex).attr("date"), $calenderLink.eq(endIndex).attr("date"));
+            $call.add(function(){
+                $inner.attr("isMove","false");
+                $calenderLink=$inner.children("a");
+                var strIndex = Math.abs(parseFloat($inner.css("left"))) / 105;
+                var endIndex = Math.abs(parseFloat($inner.css("left"))) / 105 + 6;
+                bindDate($calenderLink.eq(strIndex).attr("date"), $calenderLink.eq(endIndex).attr("date"));
+                $calenderLink.eq(strIndex).addClass("bg").siblings().removeClass("bg");
+            });
+
         }
     });
 
@@ -170,8 +183,8 @@ $(function () {
             //当前日期展示区域开始项的索引=当前inner的left/105，当前日期展示区域结束的索引=当前inner的left值/105+6
             var strIndex = Math.abs(parseFloat($inner.css("left"))) / 105;
             var endIndex = Math.abs(parseFloat($inner.css("left"))) / 105 + 6;
-            bindDate($calenderLink.eq(strIndex).attr("date"), $calenderLink.eq(endIndex).attr("date"));
-            //让比赛列表区域滚动到当前日期这一项
+            bindDate($calenderLink.eq(strIndex).attr("date"), $calenderLink.eq(endIndex).attr("date"),today);
+
         }
     }
 
@@ -191,6 +204,45 @@ function getMatchNum() {
 }
 
 //根据起始日期和结束的日期获取到比赛数据，进行数据的绑定
-function bindDate(strDtae, endDate) {
+function bindDate(strDate, endDate,today) {
+    function callBack(jsonDate){
+        var str='';
+        if(jsonDate){
+           var data=jsonDate["data"];
+            $.each(data,function(key, value){
+                str+='<div class="matchInfo" >';
+                str+= '<h2 date="' + key + '">' + key.myFormatTime("{1}月{2}日") + '</h2>';
+                str+='<ul>';
+                $.each(value,function(index,item){
+                    str+='<li>';
+                        str+='<div class="matchTime"></div>';
+                        str+='<div class="matchTeam"></div>';
+                        str+='<div class="matchBtn"></div>';
+                    str+='</li>';
+                });
+                str+='</ul>';
+                str+="</div>"
+            })
+        }
+        var $matchList=$(".matchList");
+        $matchList.children("div").eq(0).html(str);
+        $scrollRight.refresh();
+        //让比赛列表区域滚动到当前日期这一项
+        if(typeof  today!=="undefined"){
+            scrollToDate(today);
+        }
+
+    }
+
+    $.ajax({
+        url:"http://matchweb.sports.qq.com/kbs/list?columnId=" + getMatchNum() + "&startTime=" + strDate + "&endTime=" + endDate + "&_=" + Math.random(),
+        type:"get",
+        dataType:"jsonp",
+        success:callBack
+    })
+}
+
+function scrollToDate(curDate){
+    $scrollRight.scrollToElement($(".matchList .matchInfo h2[date='"+curDate+"']").get(0),500);
 
 }
