@@ -102,19 +102,22 @@
 
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-
     function tabChange(){
-        var $box=$(".box"), $boxUl=$box.children("ul"),$boxLi=$boxUl.children("li");
-        $boxLi.on("click",function(){
-           var _index=$(this).index();
+        var $box=$(".box"),$boxUl=$box.children("ul"),$boxli=$boxUl.children("li");
+        $boxli.on("click",function(){
+            var _index=$(this).index();
+            $(this).addClass("select").siblings().removeClass("select");
+            $(this).parent().nextAll().each(function(index, item){
+                index===_index?$(item).addClass("select"):$(item).removeClass("select");
+            });
+
         })
     }
+ jQuery.fn.extend({
+     tabChange:tabChange
+ });
 
-
-
-
-
-
+$(".box").tabChange();
 
 
 
